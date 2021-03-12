@@ -1,0 +1,13 @@
+name: visualization
+title:
+username:
+account: claudiaqw
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3775170
+bundleId: 4331979
+url: https://claudiaqw.shinyapps.io/visualization/
+when: 1615483930.22355
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Pr?ctica de Datos abiertos y Visualizaci?n.pdf
