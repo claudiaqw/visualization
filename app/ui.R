@@ -63,8 +63,11 @@ ui <- dashboardPage(
       tabItem(tabName = 'tracks',
               setSliderColor(slider_colors, 1:length(slider_colors)),
               chooseSliderSkin("Flat"),
-              fluidRow(h3(strong('Title'))
-              ),style='width: 1300px; height: 1000px'
+              fluidRow(h3(strong('Title'))),
+              fluidRow(
+                column(width = 6, offset = 1, plotlyOutput(outputId = 'barplot'))
+              ),
+              style='width: 1300px; height: 1000px'
       ),
       tabItem(tabName = 'albums',
               chooseSliderSkin("Flat"),
