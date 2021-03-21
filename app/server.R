@@ -9,6 +9,7 @@ library(dplyr)
 library(bubbles)
 library(ggthemes)
 library(hrbrthemes)
+library(rsconnect)
 
 
 function(input, output) {
@@ -22,7 +23,7 @@ function(input, output) {
   serie.df <- read.csv(file='./data/reduced_serie.csv') 
   serie.df$date <- as.Date(serie.df$date)
   
-  countries <- readOGR("data/countries.geo.json")
+  geojson <- readOGR("data/countries.geo.json")
   
   default_country <-'Spain'
   
@@ -49,7 +50,7 @@ function(input, output) {
     valueBox(
       value = formatC(artists_count, digits = 0, format = "f"),
       subtitle = "Artists",
-      icon = icon("area-chart"),
+      icon = icon("podcast"),
       color = "aqua"
     )
   })
@@ -60,7 +61,7 @@ function(input, output) {
     valueBox(
       value = formatC(tracks_count, digits = 0, format = "f"),
       subtitle = "Tracks",
-      icon = icon("area-chart"),
+      icon = icon("music"),
       color = "yellow"
     )
   })
@@ -197,7 +198,7 @@ function(input, output) {
     album_filter <- serie.df %>%
       filter(year(date) == input$year, album != '') %>%
       group_by(album) %>%
-      summarise(count = n(), artist = first(artist), year = first(year)) %>% 
+      summarise(count = n(), artist = first(artist)) %>% 
       arrange(desc(count)) %>% 
       head(40)
     
@@ -210,7 +211,7 @@ function(input, output) {
     album_filter <- serie.df %>%
       filter(year(date) == input$year, album != '') %>%
       group_by(album) %>%
-      summarise(count = n(), artist = first(artist), year = first(year)) %>% 
+      summarise(count = n(), artist = first(artist)) %>% 
       arrange(desc(count)) %>% 
       head(40)
     

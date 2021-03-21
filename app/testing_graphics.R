@@ -27,7 +27,6 @@ top_ten %>%
   geom_bar(stat="identity", fill = "#B90000") +
   coord_flip() +
   theme_few()
-#  theme_calc()
 
 
 world <- map("world", fill=TRUE, plot=FALSE)
@@ -205,3 +204,12 @@ serie.df %>%
   geom_line(color="#69b3a2") +
   xlab("") +
   theme_ipsum()
+
+
+
+album_filter <- serie.df %>%
+  filter(year(date) == 2020, album != '') %>%
+  group_by(album) %>%
+  summarise(count = n(), artist = first(artist), year = first(year)) %>% 
+  arrange(desc(count)) %>% 
+  head(40)

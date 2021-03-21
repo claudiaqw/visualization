@@ -53,7 +53,10 @@ ui <- dashboardPage(
                 valueBoxOutput("users")
               ),
               mainPanel(
-                img(src='wave.jpg', align = "center")
+                img(src='wave.jpg', align = "center"),
+                p(style="text-align: justify; font-size:50px;", "Last.fm is a music service that learns what you love. Create your own profile, 
+                  track what you listen to (we call this scrobbling) and get cool stuff like your own music charts, 
+                  new music recommendations, and a big ol' community of other music lovers.")
               ),
               style='width: 100%; height: 100%'),
       tabItem(tabName = 'artists',
@@ -154,7 +157,7 @@ ui <- dashboardPage(
                     offset=1,
                     sliderInput(inputId = 'year',
                                 label = 'Select year:',
-                                min = 2018, max = 2021, value = 2021,
+                                min = 2015, max = 2021, value = 2021,
                                 width = '100%'))),
                 fluidRow(
                   box(
@@ -168,7 +171,7 @@ ui <- dashboardPage(
                 ),
                 style='width: 100%; height: 100%'
               ),
-              style='width: 100%; height: 100%'
+              style='width: 100%; height: 200%'
       ),
       tabItem(tabName = 'world',
               fluidRow(
