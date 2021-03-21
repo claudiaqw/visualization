@@ -13,7 +13,7 @@ library(lubridate)
 artists <- read.csv(file = './data/artists.csv')
 tracks <- read.csv('./data/tracks.csv')
 
-serie.df <- read.csv(file='./data/artist_by_user_serie.csv') 
+serie.df <- read.csv(file='./data/artist_by_user_serie_000.csv') 
 serie.df$date <- as.Date(serie.df$date)
 
 
@@ -130,3 +130,78 @@ top_artists %>%
   theme_few()
 
 
+top_ten <-artists %>% 
+  arrange(desc(playcount)) %>% 
+  top_n(20)
+
+top_ten %>% 
+  ggplot(aes(x = name, y = listeners, fill)) +
+  geom_bar(stat="identity", fill = "#B90000") +
+  coord_flip() +
+  theme_few()
+#  theme_calc()
+
+
+df <- pkgData() %>%
+  group_by(package) %>%
+  tally() %>%
+  arrange(desc(n), tolower(package))
+
+album_name = 'Have A Nice Day'
+year <- '2020'
+
+
+album_filter <- serie.df %>%
+  filter(year(date) == year, album != '') %>%
+  group_by(album) %>%
+  summarise(count = n(), artist = first(artist), year = first(year)) %>% 
+  arrange(desc(count)) %>% 
+  head(40)
+
+
+album_filter %>% 
+  ggplot(aes(x = album, y = count)) +
+  geom_bar(stat="identity", fill = "#B90000") +
+  coord_flip() +
+  theme_few()
+
+
+track_filter <- serie.df %>%
+  filter(year(date) == year, track != '') %>%
+  group_by(track) %>%
+  summarise(count = n(), artist = first(artist), year = first(year)) %>% 
+  arrange(desc(count)) %>% 
+  head(40)
+
+
+geom_bar(position="dodge", stat="identity") + 
+  geom_text(position = position_dodge(width = 1), aes(x=college, y=0), angle = 60 )
+
+
+tracks <- read.csv('./data/tracks.csv')
+top_ten_tracks <-tracks %>% 
+  arrange(desc(playcount)) %>% 
+  head(40)
+  
+
+
+tracks.tags <- read.csv(file='./data/tracks_tags.csv')
+
+tracks.tags %>% 
+  ggplot(aes(x=track, y=tag)) +
+  geom_point(aes(size=tag_count, color = playcount), alpha = 0.7) +
+  theme(axis.text.x = element_text(angle = 90))
+
+
+
+series_5 <- read.csv(file='./data/artist_by_user_serie_5000.csv')
+
+
+serie.df %>% 
+  filter(artist == 'Taylor Swift') %>% 
+  group_by(date) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(x=date, y=count)) +
+  geom_line(color="#69b3a2") +
+  xlab("") +
+  theme_ipsum()
